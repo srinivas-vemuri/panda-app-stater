@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ h1>Panda PHP Blank App - Settings System Documentation</h1>
+<p class="ds-markdown-paragraph"><strong>Project Name</strong>: Panda PHP Blank App<br /><strong>Type</strong>: PHP Boilerplate/Starter System<br /><strong>Goal</strong>: Create a scalable, admin-configurable PHP application starter with PWA capabilities</p>
+<h2>Core Strategy</h2>
+<h3>Settings Storage</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph"><strong>File</strong>: <code>settings.json</code> in <code>/inc/</code> directory</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Auto-creation</strong>: File created automatically if not present</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Structure</strong>: Grouped settings with validation and defaults</p>
+</li>
+</ul>
+<h3>User Permission System</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph"><strong>user_type 2</strong> = super_admin (full system access + developer features)</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>user_type 1</strong> = admin (user management + basic settings)</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>user_type 0</strong> = regular (normal user access)</p>
+</li>
+</ul>
+<h2>Settings Groups Structure</h2>
+<h3>Group 1: Basic App Configuration</h3>
+<p class="ds-markdown-paragraph">Core application identity and fundamental settings</p>
+<h3>Group 2: Branding &amp; Design</h3>
+<p class="ds-markdown-paragraph">Visual identity, logos, colors, and styling</p>
+<h3>Group 3: PWA Settings</h3>
+<p class="ds-markdown-paragraph">Progressive Web App configuration and assets</p>
+<h3>Group 4: Email Configuration</h3>
+<p class="ds-markdown-paragraph">SMTP settings and email functionality</p>
+<h2>Settings Fields Reference</h2>
+<h3>Group 1: Basic App Configuration</h3>
+<table border="1" width="100%" cellspacing="0" cellpadding="8">
+<thead>
+<tr style="background-color: #f8f9fa;">
+<th width="15%">Field Name</th>
+<th width="15%">Field Label</th>
+<th width="10%">Input Type</th>
+<th width="25%">Description</th>
+<th width="35%">Developer Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>appname</strong></td>
+<td>App Name</td>
+<td>Text</td>
+<td>The full name of your application, displayed in browser titles and app stores</td>
+<td>Use in HTML titles: <code>&lt;title&gt;&lt;?= getSettingValue('appname') ?&gt;&lt;/title&gt;</code></td>
+</tr>
+<tr>
+<td><strong>appshortname</strong></td>
+<td>Short Name</td>
+<td>Text</td>
+<td>Compact name for mobile homescreens (maximum 12 characters)</td>
+<td>Used in PWA manifest. Access via <code>getSettingValue('appshortname')</code></td>
+</tr>
+<tr>
+<td><strong>appurl</strong></td>
+<td>App URL</td>
+<td>Text</td>
+<td>Your application's main domain URL</td>
+<td>Use for absolute URLs: <code>&lt;?= getSettingValue('appurl') ?&gt;/path</code></td>
+</tr>
+<tr>
+<td><strong>appadminemail</strong></td>
+<td>Admin Email</td>
+<td>Email</td>
+<td>Primary administrator email for system alerts and notifications</td>
+<td>Use for system notifications and contact forms</td>
+</tr>
+<tr>
+<td><strong>appfootertext</strong></td>
+<td>Footer Text</td>
+<td>Text</td>
+<td>Copyright and legal text displayed in application footer</td>
+<td>Display in footer templates: <code>&lt;?= htmlspecialchars(getSettingValue('appfootertext')) ?&gt;</code></td>
+</tr>
+<tr>
+<td><strong>appindexpage</strong></td>
+<td>Index Page</td>
+<td>Text</td>
+<td>Starting page when users open the application</td>
+<td>Use for redirects after login</td>
+</tr>
+</tbody>
+</table>
+<h3>Group 2: Branding &amp; Design</h3>
+<table border="1" width="100%" cellspacing="0" cellpadding="8">
+<thead>
+<tr style="background-color: #f8f9fa;">
+<th width="15%">Field Name</th>
+<th width="15%">Field Label</th>
+<th width="10%">Input Type</th>
+<th width="25%">Description</th>
+<th width="35%">Developer Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>appregularlogo</strong></td>
+<td>Main Logo</td>
+<td>File</td>
+<td>Primary logo for login pages and larger displays (recommended: 400x400px PNG)</td>
+<td>Use: <code>&lt;img src="assets/logos/&lt;?= getSettingValue('appregularlogo') ?&gt;"&gt;</code></td>
+</tr>
+<tr>
+<td><strong>appheaderlogo</strong></td>
+<td>Header Logo</td>
+<td>File</td>
+<td>Compact logo for navigation headers (recommended: 150x50px PNG)</td>
+<td>Use in navigation headers, ensure responsive scaling</td>
+</tr>
+<tr>
+<td><strong>appfevicon</strong></td>
+<td>Favicon</td>
+<td>File</td>
+<td>Browser tab icon (recommended: 32x32px PNG)</td>
+<td>Auto-used in generated HTML, upload PNG format</td>
+</tr>
+<tr>
+<td><strong>appthemecolor</strong></td>
+<td>Theme Color</td>
+<td>Color</td>
+<td>Primary brand color for browser UI and mobile address bars</td>
+<td>Apply as CSS variable: <code>--primary-color: &lt;?= getSettingValue('appthemecolor') ?&gt;</code></td>
+</tr>
+<tr>
+<td><strong>appheadercolor</strong></td>
+<td>Header Color</td>
+<td>Color</td>
+<td>Background color for top navigation header</td>
+<td>Apply as CSS variable for header styling</td>
+</tr>
+<tr>
+<td><strong>appfootercolor</strong></td>
+<td>Footer Color</td>
+<td>Color</td>
+<td>Background color for application footer</td>
+<td>Use in footer section styling</td>
+</tr>
+</tbody>
+</table>
+<h3>Group 3: PWA Settings</h3>
+<table border="1" width="100%" cellspacing="0" cellpadding="8">
+<thead>
+<tr style="background-color: #f8f9fa;">
+<th width="15%">Field Name</th>
+<th width="15%">Field Label</th>
+<th width="10%">Input Type</th>
+<th width="25%">Description</th>
+<th width="35%">Developer Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>appispwa</strong></td>
+<td>Enable PWA</td>
+<td>Checkbox</td>
+<td>Enable Progressive Web App features and functionality</td>
+<td>Check: <code>&lt;?php if(getSettingValue('appispwa')) { generatePWAFiles(); } ?&gt;</code></td>
+</tr>
+<tr>
+<td><strong>appicon192</strong></td>
+<td>PWA Icon Small</td>
+<td>File</td>
+<td>192x192px icon for Android homescreens</td>
+<td>Auto-used in manifest.json, must be exactly 192x192px</td>
+</tr>
+<tr>
+<td><strong>appicon512</strong></td>
+<td>PWA Icon Large</td>
+<td>File</td>
+<td>512x512px icon for splash screens and larger devices</td>
+<td>Auto-used in manifest.json, generate splash screens from this</td>
+</tr>
+<tr>
+<td><strong>appdisplay</strong></td>
+<td>Display Mode</td>
+<td>Select</td>
+<td>How the app appears when launched</td>
+<td>Options: standalone, minimal-ui, browser. Auto-set in manifest</td>
+</tr>
+</tbody>
+</table>
+<h3>Group 4: Email Configuration</h3>
+<table border="1" width="100%" cellspacing="0" cellpadding="8">
+<thead>
+<tr style="background-color: #f8f9fa;">
+<th width="15%">Field Name</th>
+<th width="15%">Field Label</th>
+<th width="10%">Input Type</th>
+<th width="25%">Description</th>
+<th width="35%">Developer Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>appsmtphost</strong></td>
+<td>SMTP Host</td>
+<td>Text</td>
+<td>Outgoing mail server address</td>
+<td>Used automatically by <code>sendmail()</code> function</td>
+</tr>
+<tr>
+<td><strong>appsmtpport</strong></td>
+<td>SMTP Port</td>
+<td>Number</td>
+<td>Outgoing mail server port</td>
+<td>Used automatically, common ports: 587 (TLS), 465 (SSL)</td>
+</tr>
+<tr>
+<td><strong>appsmtpusername</strong></td>
+<td>SMTP Username</td>
+<td>Text</td>
+<td>Mail server authentication username</td>
+<td>Usually email address, used by <code>sendmail()</code></td>
+</tr>
+<tr>
+<td><strong>appsmtppassword</strong></td>
+<td>SMTP Password</td>
+<td>Password</td>
+<td>Mail server authentication password</td>
+<td>Store encrypted in production, used by <code>sendmail()</code></td>
+</tr>
+<tr>
+<td><strong>appemailsignature</strong></td>
+<td>Email Signature</td>
+<td>Text</td>
+<td>Standard signature appended to all outgoing system emails</td>
+<td>Auto-appended to all system emails via <code>sendmail()</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Core Functions Architecture</h2>
+<h3>Primary Functions<br />// Get settings by group or specific field<br />getSettings($group = null, $field = null)<br /><br />// Quick value access with fallback to defaults &nbsp;<br />getSettingValue($field)<br /><br />// Bulk update settings with validation<br />updateSettings($updates)<br /><br />// Secure file processing and storage<br />handleFileUpload($field, $file)<br /><br />// Dynamic PWA file creation<br />generatePWAFiles()</h3>
+<h3>Function Usage Examples</h3>
+<p>// Basic value retrieval<br />$appName = getSettingValue('appname');<br /><br />// Group-based access &nbsp;<br />$brandingSettings = getSettings('branding');<br /><br />// File upload handling<br />$result = handleFileUpload('appregularlogo', $_FILES['logo']);<br /><br />// PWA generation<br />if (getSettingValue('appispwa')) {<br />&nbsp;&nbsp;&nbsp; generatePWAFiles();<br />}</p>
+<h2>Technical Implementation Details</h2>
+<h3>JSON Structure</h3>
+<p>{<br />&nbsp; "settings": {<br />&nbsp;&nbsp;&nbsp; "basic": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "appname": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "value": "Panda PHP",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "type": "text", <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "label": "App Name",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "description": "Your application name",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "developer_note": "Use in HTML titles"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; }<br />&nbsp; }<br />}</p>
+<h3>File Upload Strategy</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph"><strong>Location</strong>: <code>/assets/logos/</code>, <code>/assets/icons/</code></p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Naming</strong>: <code>fieldname_timestamp.ext</code> (e.g., <code>main_logo_1705312800.png</code>)</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Sanitization</strong>: Lowercase, underscores, no special characters</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Validation</strong>: File type and size checking</p>
+</li>
+</ul>
+<h3>PWA File Generation</h3>
+<p class="ds-markdown-paragraph">When <code>appispwa = true</code>, automatically generate:</p>
+<ul>
+<li>
+<p class="ds-markdown-paragraph"><code>manifest.json</code> (from settings)</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><code>service-worker.js</code> (basic caching)</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Icon optimization and placement</p>
+</li>
+</ul>
+<h3>Default Values &amp; Fallbacks</h3>
+<p>$defaults = [<br />&nbsp;&nbsp;&nbsp; 'appname' =&gt; 'Panda PHP App',<br />&nbsp;&nbsp;&nbsp; 'appshortname' =&gt; 'Panda',<br />&nbsp;&nbsp;&nbsp; 'appurl' =&gt; 'http://localhost', <br />&nbsp;&nbsp;&nbsp; 'appispwa' =&gt; false,<br />&nbsp;&nbsp;&nbsp; 'appsmtpport' =&gt; 587<br />];</p>
+<h2>Settings Page UI Design</h2>
+<h3>Tab-based Interface</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph"><strong>Tab 1: Basic Settings</strong> - App Name, Short Name, App URL, Admin Email, Footer Text, Index Page</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Tab 2: Branding</strong> - Logos (Main, Header), Favicon, Colors (Theme, Header, Footer)</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Tab 3: PWA</strong> - Enable PWA checkbox, Icon uploads (192px, 512px), Display mode selection</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Tab 4: Email</strong> - SMTP Settings (Host, Port), Credentials (Username, Password), Email signature</p>
+</li>
+</ul>
+<h3>Developer Features</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph"><strong>Syntax Highlighting</strong>: Prism.js for code examples</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Developer Notes</strong>: Visible only to super_admins (user_type = 2)</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Inline Help</strong>: Contextual developer usage examples</p>
+</li>
+</ul>
+<h2>Security Considerations</h2>
+<h3>Implemented</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph">File type validation for uploads</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">SQL injection prevention via PDO</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Session-based authentication</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Role-based access control</p>
+</li>
+</ul>
+<h3>Planned for Future</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph">Settings encryption for sensitive data</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">File upload malware scanning</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Settings change audit logging</p>
+</li>
+</ul>
+<h2>Implementation Phases</h2>
+<h3>Phase 1: Core System ✅</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph">Basic user authentication</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Database structure</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Role-based permissions</p>
+</li>
+</ul>
+<h3>Phase 2: Settings Foundation 🚧</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph">JSON settings file structure</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Basic CRUD operations</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Settings admin page skeleton</p>
+</li>
+</ul>
+<h3>Phase 3: File Management</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph">File upload handling</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Asset organization</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Image validation</p>
+</li>
+</ul>
+<h3>Phase 4: PWA Integration</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph">PWA file generation</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Manifest creation</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Service worker implementation</p>
+</li>
+</ul>
+<h3>Phase 5: Email System</h3>
+<ul>
+<li>
+<p class="ds-markdown-paragraph">SMTP configuration</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Email template system</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph">Testing utilities</p>
+</li>
+</ul>
+<h2>Discussion Points</h2>
+<h3>For Partner Review</h3>
+<ol start="1">
+<li>
+<p class="ds-markdown-paragraph"><strong>Are all necessary settings included?</strong> Any missing critical fields?</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Group organization</strong> - Does the grouping make sense?</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Permission structure</strong> - Is the 3-tier system (super_admin/admin/regular) sufficient?</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>PWA features</strong> - Are the PWA settings comprehensive enough?</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Email configuration</strong> - Should we include more SMTP options?</p>
+</li>
+</ol>
+<h3>Technical Considerations</h3>
+<ol start="1">
+<li>
+<p class="ds-markdown-paragraph"><strong>File storage</strong> - Should uploaded files be in database or filesystem?</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Settings backup</strong> - Should we implement automatic settings backup?</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Caching</strong> - Should settings be cached in session for performance?</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Validation</strong> - What level of input validation is needed?</p>
+</li>
+</ol>
+<h3>Future Enhancements</h3>
+<ol start="1">
+<li>
+<p class="ds-markdown-paragraph"><strong>Settings import/export</strong></p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Multi-environment support</strong> (dev/staging/production)</p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Settings versioning and history</strong></p>
+</li>
+<li>
+<p class="ds-markdown-paragraph"><strong>Advanced file processing</strong> (image optimization, etc.)</p>
+</li>
+</ol>
+<p><strong>END OF THE DOCUMENT</strong></p>   
+</body>
+</html>

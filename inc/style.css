@@ -1,0 +1,57 @@
+/* Softer grey navbar */
+.navbar-softgray {
+    background-color: #6c757d; /* Bootstrap secondary-ish grey */
+  }
+  
+  /* Floating menu panel (overlay) */
+  .menu-panel {
+    --sb-nav-height: 56px;      /* default navbar height; JS updates this */
+    position: fixed;
+    top: calc(var(--sb-nav-height) + 8px);
+    right: 12px;
+    width: 280px;
+    max-height: 80vh;
+    overflow: auto;
+    background: #e9ecef;        /* light grey like your screenshot */
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 14px 32px rgba(0,0,0,.28);
+    z-index: 1055;              /* above content, below modals */
+    opacity: 0;
+    transform: translateY(-8px) scale(.98);
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+  }
+  
+  /* Visible state */
+  .menu-panel.show {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  
+  /* Item look similar to screenshot */
+  .menu-panel .list-group-item {
+    background: #eef1f4;
+    border: 0;
+    padding: .8rem 1rem;
+  }
+  .menu-panel .list-group-item + .list-group-item {
+    border-top: 1px solid rgba(0,0,0,.04);
+  }
+  .menu-panel .list-group-item:active,
+  .menu-panel .list-group-item:hover {
+    /*background: #dde2e7;*/
+    background: #6c757d;
+
+    color:#fff;
+  }
+  
+  input[type="color"].form-control,
+input[type="color"].form-control-color {
+  width: 80px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  border: none !important;
+  cursor: pointer;
+}
